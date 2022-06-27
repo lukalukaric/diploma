@@ -8,13 +8,15 @@ import {FooterComponent} from "./footer/footer.component";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule} from "@angular/material/button";
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { QuestionPageComponent } from './question-page/question-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    QuestionPageComponent
   ],
   imports: [
     BrowserModule,
