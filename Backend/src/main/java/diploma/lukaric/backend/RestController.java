@@ -12,7 +12,7 @@ public class RestController {
     }
 
     @CrossOrigin("http://localhost:4200")
-    @PostMapping
+    @PostMapping("/validate")
     public RestResponse validateSQLStatement(@RequestBody String statement) {
         service.validateSQLStatement(statement);
         return new RestResponse(200,"OK");
