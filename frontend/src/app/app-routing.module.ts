@@ -1,7 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import {LandingPageComponent} from "./landing-page/landing-page.component";
+import {QuestionPageComponent} from "./question-page/question-page.component";
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: 'home', component: LandingPageComponent } ,
+  { path: 'question', component: QuestionPageComponent } ,
+  { path: '', redirectTo: '/home',  pathMatch: 'full'}
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
