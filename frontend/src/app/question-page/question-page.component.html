@@ -1,1 +1,12 @@
-<p>question-page works!</p>
+<div class="container">
+  <form [formGroup]="validateStatement">
+    <div>
+      <mat-form-field>
+        <input matInput type="text" placeholder="SQL Stavek" formControlName="statement" required>
+      </mat-form-field>
+    </div>
+    <div>
+      <button mat-raised-button color="primary" (click)="validateStatementOnClick()">Preizkusi</button>
+    </div>
+  </form>
+</div>

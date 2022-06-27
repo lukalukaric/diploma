@@ -11,5 +11,5 @@ import lombok.Setter;
 @Setter
 public class RestResponse {
     private int status;
-    private String text;
+    private String info;
 }
