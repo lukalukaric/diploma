@@ -21,12 +21,12 @@ public class Service {
             Scanner scanner = new Scanner(fileInputStream);
             while (scanner.hasNextLine()) {
                 String[] line = scanner.nextLine().split("\"");
-                questions.add(new Question(line[1], line[3], line[5]));
+                questions.add(new Question(line[1], line[3], line[5], line[7]));
             }
             scanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("ERROR: Unable to read file");
-            questions.add(new Question("-1", "Unable to read file", "ERROR"));
+            questions.add(new Question("-1", "Unable to read file", "ERROR", "ERROR"));
         }
         int randomNumber = new Random().nextInt(questions.size());
         System.out.println("Returning random question: " + questions.get(randomNumber));
