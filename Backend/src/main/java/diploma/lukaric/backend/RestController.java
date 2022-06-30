@@ -18,7 +18,7 @@ public class RestController {
         return new RestResponse(200,"OK");
     }
 
-    @GetMapping(path = "/question")
+    @GetMapping(path = "/randomQuestion")
     public Question getRandomQuestion() {
         return service.getRandomQuestion();
     }
