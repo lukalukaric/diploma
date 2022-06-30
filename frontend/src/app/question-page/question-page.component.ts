@@ -3,6 +3,8 @@ import {FormControl, FormGroup} from "@angular/forms";
 import {QuestionService} from "../service/question-service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {DOCUMENT} from "@angular/common";
+import {Question} from "../service/question";
+import {J} from "@angular/cdk/keycodes";
 
 @Component({
   selector: 'app-question-page',
@@ -14,13 +16,16 @@ export class QuestionPageComponent implements OnInit {
     statement: new FormControl("")
   });
   typeOfQuestion = "";
+  questionText = "";
 
   constructor(private snackBar: MatSnackBar, private questionService: QuestionService, @Inject(DOCUMENT) private document: Document) {
     if(this.document.location.href.endsWith("randomQuestion")){
       this.typeOfQuestion="randomQuestion";
-      console.log("RandomQuestion");
+      this.waitForQuestion();
     }
-
+  }
+  async waitForQuestion() {
+    this.questionText = (await this.questionService.getRandomQuestion()).question;
   }
 
   ngOnInit(): void {

@@ -1,2 +1,2 @@
-"1" "Koliko študentev je iz Maribora?" "3"
-"2" "Koliko organizatorjev je iz Avstrije?" "2"
+"1" "Koliko študentev je iz Maribora?" "3" "count"
+"2" "Koliko organizatorjev je iz Avstrije?" "2" "count"

@@ -1,6 +1,7 @@
 <div class="container">
   <form [formGroup]="validateStatement">
     <div>
+      <h2> {{ questionText }}</h2>
       <mat-form-field>
         <input matInput type="text" placeholder="SQL Stavek" formControlName="statement" required>
       </mat-form-field>
