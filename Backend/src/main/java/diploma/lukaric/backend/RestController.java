@@ -22,4 +22,9 @@ public class RestController {
     public Question getRandomQuestion() {
         return service.getRandomQuestion();
     }
+
+    @GetMapping(path = "/selectQuestion")
+    public Question getSelectQuestion() {
+        return service.getSelectQuestion();
+    }
 }

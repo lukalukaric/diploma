@@ -21,11 +21,15 @@ export class QuestionPageComponent implements OnInit {
   constructor(private snackBar: MatSnackBar, private questionService: QuestionService, @Inject(DOCUMENT) private document: Document) {
     if(this.document.location.href.endsWith("randomQuestion")){
       this.typeOfQuestion="randomQuestion";
-      this.waitForQuestion();
+      this.waitForQuestion(this.questionService.getRandomQuestion());
+    }
+    else if(this.document.location.href.endsWith("selectQuestion")){
+      this.typeOfQuestion="randomQuestion";
+      this.waitForQuestion(this.questionService.getSelectQuestion());
     }
   }
-  async waitForQuestion() {
-    this.questionText = (await this.questionService.getRandomQuestion()).question;
+  async waitForQuestion(param: any) {
+    this.questionText = (await param).question;
   }
 
   ngOnInit(): void {

@@ -22,4 +22,10 @@ export class QuestionService{
     // @ts-ignore
     return await lastValueFrom(tmp);
   }
+
+  public async getSelectQuestion() :Promise<Question> {
+    var tmp = this.http.get('/api/selectQuestion');
+    // @ts-ignore
+    return await lastValueFrom(tmp);
+  }
 }
