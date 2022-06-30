@@ -5,7 +5,8 @@ import {QuestionPageComponent} from "./question-page/question-page.component";
 
 const routes: Routes = [
   { path: 'home', component: LandingPageComponent } ,
-  { path: 'question', component: QuestionPageComponent } ,
+  { path: 'randomQuestion', component: QuestionPageComponent } ,
+  { path: 'countQuestion', component: QuestionPageComponent } ,
   { path: '', redirectTo: '/home',  pathMatch: 'full'}
 ];
 

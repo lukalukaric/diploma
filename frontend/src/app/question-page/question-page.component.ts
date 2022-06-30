@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {QuestionService} from "../service/question-service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {DOCUMENT} from "@angular/common";
 
 @Component({
   selector: 'app-question-page',
@@ -12,8 +13,15 @@ export class QuestionPageComponent implements OnInit {
   validateStatement = new FormGroup({
     statement: new FormControl("")
   });
+  typeOfQuestion = "";
 
-  constructor(private snackBar: MatSnackBar, private questionService: QuestionService) { }
+  constructor(private snackBar: MatSnackBar, private questionService: QuestionService, @Inject(DOCUMENT) private document: Document) {
+    if(this.document.location.href.endsWith("randomQuestion")){
+      this.typeOfQuestion="randomQuestion";
+      console.log("RandomQuestion");
+    }
+
+  }
 
   ngOnInit(): void {
   }
