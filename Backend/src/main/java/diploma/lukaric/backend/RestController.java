@@ -27,4 +27,24 @@ public class RestController {
     public Question getSelectQuestion() {
         return service.getSelectQuestion();
     }
+
+    @GetMapping(path = "/aggregateQuestion")
+    public Question getAggregateQuestion() {
+        return service.getAggregateQuestion();
+    }
+
+    @GetMapping(path = "/groupByQuestion")
+    public Question getGroupByQuestion() {
+        return service.getGroupByQuestion();
+    }
+
+    @GetMapping(path = "/orderByQuestion")
+    public Question getOrderByQuestion() {
+        return service.getOrderByQuestion();
+    }
+
+    @GetMapping(path = "/havingQuestion")
+    public Question getHavingQuestion() {
+        return service.getHavingQuestion();
+    }
 }

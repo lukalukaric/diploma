@@ -19,13 +19,29 @@ export class QuestionPageComponent implements OnInit {
   questionText = "";
 
   constructor(private snackBar: MatSnackBar, private questionService: QuestionService, @Inject(DOCUMENT) private document: Document) {
-    if(this.document.location.href.endsWith("randomQuestion")){
+    if(this.document.location.href.endsWith("selectQuestion")){
+      this.typeOfQuestion="selectQuestion";
+      this.waitForQuestion(this.questionService.getSelectQuestion());
+    }
+    else if(this.document.location.href.endsWith("aggregateQuestion")){
+      this.typeOfQuestion="aggregateQuestion";
+      this.waitForQuestion(this.questionService.getAggregateQuestion());
+    }
+    else if(this.document.location.href.endsWith("groupByQuestion")){
+      this.typeOfQuestion="randomQuestion";
+      this.waitForQuestion(this.questionService.getGroupByQuestion());
+    }
+    else if(this.document.location.href.endsWith("orderByQuestion")){
+      this.typeOfQuestion="randomQuestion";
+      this.waitForQuestion(this.questionService.getOrderByQuestion());
+    }
+    else if(this.document.location.href.endsWith("havingQuestion")){
+      this.typeOfQuestion="randomQuestion";
+      this.waitForQuestion(this.questionService.getHavingQuestion());
+    }
+    else{
       this.typeOfQuestion="randomQuestion";
       this.waitForQuestion(this.questionService.getRandomQuestion());
-    }
-    else if(this.document.location.href.endsWith("selectQuestion")){
-      this.typeOfQuestion="randomQuestion";
-      this.waitForQuestion(this.questionService.getSelectQuestion());
     }
   }
   async waitForQuestion(param: any) {

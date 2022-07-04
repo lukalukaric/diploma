@@ -11,16 +11,43 @@ public class Service {
     public void validateSQLStatement(String statement){
         System.out.println("dobili smo: " + statement);
     }
+    public Question getSelectQuestion() {
+        readQuestionsFile("select");
+        int randomNumber = new Random().nextInt(questions.size());
+        System.out.println("Returning random question: " + questions.get(randomNumber));
+        return questions.get(randomNumber);
+    }
 
-    public Question getRandomQuestion() {
+    public Question getAggregateQuestion() {
         readQuestionsFile("aggregate");
         int randomNumber = new Random().nextInt(questions.size());
         System.out.println("Returning random question: " + questions.get(randomNumber));
         return questions.get(randomNumber);
     }
 
-    public Question getSelectQuestion() {
-        readQuestionsFile("select");
+    public Question getGroupByQuestion() {
+        readQuestionsFile("groupBy");
+        int randomNumber = new Random().nextInt(questions.size());
+        System.out.println("Returning random question: " + questions.get(randomNumber));
+        return questions.get(randomNumber);
+    }
+
+    public Question getOrderByQuestion() {
+        readQuestionsFile("orderBy");
+        int randomNumber = new Random().nextInt(questions.size());
+        System.out.println("Returning random question: " + questions.get(randomNumber));
+        return questions.get(randomNumber);
+    }
+
+    public Question getHavingQuestion() {
+        readQuestionsFile("having");
+        int randomNumber = new Random().nextInt(questions.size());
+        System.out.println("Returning random question: " + questions.get(randomNumber));
+        return questions.get(randomNumber);
+    }
+
+    public Question getRandomQuestion() {
+        readQuestionsFile("random");
         int randomNumber = new Random().nextInt(questions.size());
         System.out.println("Returning random question: " + questions.get(randomNumber));
         return questions.get(randomNumber);
@@ -33,7 +60,10 @@ public class Service {
             Scanner scanner = new Scanner(fileInputStream);
             while (scanner.hasNextLine()) {
                 String[] line = scanner.nextLine().split("\"");
-                if(line[7].equals(filter)){
+                if(filter.equals("random")){
+                    questions.add(new Question(line[1], line[3], line[5], line[7]));
+                }
+                else if(line[7].equals(filter)){
                     questions.add(new Question(line[1], line[3], line[5], line[7]));
                 }
 

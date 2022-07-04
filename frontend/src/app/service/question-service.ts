@@ -28,4 +28,27 @@ export class QuestionService{
     // @ts-ignore
     return await lastValueFrom(tmp);
   }
+
+  public async getAggregateQuestion() :Promise<Question> {
+    var tmp = this.http.get('/api/aggregateQuestion');
+    // @ts-ignore
+    return await lastValueFrom(tmp);
+  }
+
+  public async getGroupByQuestion() :Promise<Question> {
+    var tmp = this.http.get('/api/groupByQuestion');
+    // @ts-ignore
+    return await lastValueFrom(tmp);
+  }
+
+  public async getOrderByQuestion() :Promise<Question> {
+    var tmp = this.http.get('/api/orderByQuestion');
+    // @ts-ignore
+    return await lastValueFrom(tmp);
+  }
+  public async getHavingQuestion() :Promise<Question> {
+    var tmp = this.http.get('/api/havingQuestion');
+    // @ts-ignore
+    return await lastValueFrom(tmp);
+  }
 }
