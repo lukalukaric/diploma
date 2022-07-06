@@ -57,22 +57,29 @@ export class QuestionPageComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  fillFields(restResponse : RestResponse){
+    this.usersAnswer = restResponse;
+    //TODO fix that shitt bruda
+
+    //console.log('status' , restResponse.status);
+    //console.log('data' , restResponse.data);
+
+    this.snackBar.open("Correct!", "Hide", {
+      duration: 3000,
+    } );
+
+
+  }
+
   validateStatementOnClick() {
     let statement = this.validateStatement.value.statement;
     if (statement != null) {
       let data = new ModelStatementQuestion(statement, this.question);
       this.questionService.validateStatement(data)
         .subscribe({
-          next: (v: RestResponse) => {
-              this.usersAnswer = v;
-              //TODO fix that shitt bruda
-              console.log('all', v);
-              console.log('info' , v.info);
-              console.log('status' , v.status);
-              console.log('data' , v.data);
-              this.snackBar.open("Correct!", "Hide", {
-              duration: 3000,
-            } );
+          next: (v) => {
+            console.log('all', v);
+            console.log('info' , v.info);
           },
           error: (e) => this.snackBar.open("Error: " + e, "Hide", {
             duration: 3000,
@@ -80,6 +87,5 @@ export class QuestionPageComponent implements OnInit {
         });
       console.log(statement);
     }
-
   }
 }

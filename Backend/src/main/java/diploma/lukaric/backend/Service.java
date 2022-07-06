@@ -14,54 +14,55 @@ public class Service {
     public ArrayList<ResponseModel> validateSQLStatement(String statement, Question question){
         ArrayList<ResponseModel> list = new ArrayList<>();
         System.out.println("tip: " + question.getType());
-        if(!question.getType().equals("aggregate")){
-            System.out.println("dobili smo: " + statement);
 
-            Connection connection;
 
-            try {
-                Class.forName("org.postgresql.Driver");
-                connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/course","luka", "luka");
-                System.out.println("Successfully Connected.");
+        System.out.println("dobili smo: " + statement);
 
-                Statement stmt = connection.createStatement();
+        Connection connection;
 
-                ResultSet rs = stmt.executeQuery( statement);
+        try {
+            Class.forName("org.postgresql.Driver");
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/course","luka", "luka");
+            System.out.println("Successfully Connected.");
 
-                List<String> columnNames = new ArrayList<>();
+            Statement stmt = connection.createStatement();
 
-                // get names of columns from ResultSet
-                ResultSetMetaData resultSetMetaData = rs.getMetaData();
-                for(int i = 1; i <= resultSetMetaData.getColumnCount(); i++){
-                    columnNames.add(resultSetMetaData.getColumnLabel(i));
-                }
+            ResultSet rs = stmt.executeQuery( statement);
 
-                while (rs.next()) {
-                    List<Object> rowData = new ArrayList<>();
-                    for (int i = 1; i <= resultSetMetaData.getColumnCount(); i++) {
-                        rowData.add(rs.getObject(i));
-                    }
 
-                    for (int colIndex = 0; colIndex < resultSetMetaData.getColumnCount(); colIndex++) {
-                        list.add(new ResponseModel(columnNames.get(colIndex),rowData.get(colIndex).toString()));
-                    }
-                }
+            List<String> columnNames = new ArrayList<>();
 
-                rs.close();
-
-                stmt.close();
-
-                connection.close();
-
-            } catch ( Exception e ) {
-
-                System.err.println( e.getClass().getName()+": "+ e.getMessage() );
-
-                System.exit(0);
-
+            // get names of columns from ResultSet
+            ResultSetMetaData resultSetMetaData = rs.getMetaData();
+            for(int i = 1; i <= resultSetMetaData.getColumnCount(); i++){
+                columnNames.add(resultSetMetaData.getColumnLabel(i));
             }
-            System.out.println("Data Retrieved Successfully ..");
+
+            while (rs.next()) {
+                List<Object> rowData = new ArrayList<>();
+                for (int i = 1; i <= resultSetMetaData.getColumnCount(); i++) {
+                    rowData.add(rs.getObject(i));
+                }
+
+                for (int colIndex = 0; colIndex < resultSetMetaData.getColumnCount(); colIndex++) {
+                    list.add(new ResponseModel(columnNames.get(colIndex),rowData.get(colIndex).toString()));
+                }
+            }
+
+            rs.close();
+
+            stmt.close();
+
+            connection.close();
+
+        } catch ( Exception e ) {
+
+            System.err.println( e.getClass().getName()+": "+ e.getMessage() );
+            return null;
+
         }
+        System.out.println("Data Retrieved Successfully ..");
+
         return list;
     }
     public Question getSelectQuestion() {
