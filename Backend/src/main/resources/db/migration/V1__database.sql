@@ -1,53 +1,53 @@
 CREATE TABLE IF NOT EXISTS state(
-    id BIGINT NOT NULL PRIMARY KEY,
+    id SERIAL NOT NULL PRIMARY KEY,
     name VARCHAR(45) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS mail(
-    id BIGINT NOT NULL PRIMARY KEY,
+    id SERIAL NOT NULL PRIMARY KEY,
     name VARCHAR(45) NOT NULL,
-    postcode INTEGER NOT NULL,
+    postalcode INTEGER NOT NULL,
     FK_state INT not null
 );
 
 CREATE TABLE IF NOT EXISTS address(
-    id BIGINT NOT NULL PRIMARY KEY,
+    id SERIAL NOT NULL PRIMARY KEY,
     street VARCHAR(45) NOT NULL,
     houseNumber VARCHAR(45) NOT NULL,
     FK_mail INT not null
 );
 
 CREATE TABLE IF NOT EXISTS organizer(
-    id BIGINT NOT NULL PRIMARY KEY,
+    id SERIAL NOT NULL PRIMARY KEY,
     name VARCHAR(45) NOT NULL,
     FK_address INT not null
 );
 
 CREATE TABLE IF NOT EXISTS courseOrganizer(
-    id BIGINT NOT NULL PRIMARY KEY,
+    id SERIAL NOT NULL PRIMARY KEY,
     FK_course INT not null,
     FK_organizer INT not null
 );
 
 CREATE TABLE IF NOT EXISTS course(
-    id BIGINT NOT NULL PRIMARY KEY,
+    id SERIAL NOT NULL PRIMARY KEY,
     name VARCHAR(45) NOT NULL,
     price DECIMAL NOT NULL,
     place VARCHAR(45) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS courseStudent(
-    id BIGINT NOT NULL PRIMARY KEY,
+    id SERIAL NOT NULL PRIMARY KEY,
     FK_course INT not null,
     FK_student INT not null
 );
 
 CREATE TABLE IF NOT EXISTS student(
-    id BIGINT NOT NULL PRIMARY KEY,
+    id SERIAL NOT NULL PRIMARY KEY,
     firstName VARCHAR(20) NOT NULL,
     lastName VARCHAR(45) NOT NULL,
     phoneNumber VARCHAR(15) NOT NULL,
-    email VARCHAR(20),
+    email VARCHAR(20) NOT NULL,
     FK_address INT not null
 );
 
