@@ -5,14 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class RestResponse {
-    private int status;
-    private String info;
-    private ArrayList<ResponseModel> data;
+public class ModelStatementQuestion {
+    private String statement;
+    private Question question;
 }

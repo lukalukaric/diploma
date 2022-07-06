@@ -11,8 +11,8 @@ export class QuestionService{
 
   constructor(private http: HttpClient){ }
 
-  public validateStatement(statement: any): Observable<RestResponse> {
-    return this.http.post<RestResponse>('/api/validate', statement, {
+  public validateStatement(data: any): Observable<RestResponse> {
+    return this.http.post<RestResponse>('/api/validate', data , {
       responseType: "text" as "json",
     })
   }

@@ -1,15 +1,68 @@
 package diploma.lukaric.backend;
 
+import diploma.lukaric.backend.db.AddressRepository;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.sql.*;
 import java.util.*;
 import java.util.logging.Logger;
 
 @org.springframework.stereotype.Service
 public class Service {
     private List<Question> questions = new ArrayList<>();
-    public void validateSQLStatement(String statement){
-        System.out.println("dobili smo: " + statement);
+    public ArrayList<ResponseModel> validateSQLStatement(String statement, Question question){
+        ArrayList<ResponseModel> list = new ArrayList<>();
+        System.out.println("tip: " + question.getType());
+        if(!question.getType().equals("aggregate")){
+            System.out.println("dobili smo: " + statement);
+
+            Connection connection;
+
+            try {
+                Class.forName("org.postgresql.Driver");
+                connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/course","luka", "luka");
+                System.out.println("Successfully Connected.");
+
+                Statement stmt = connection.createStatement();
+
+                ResultSet rs = stmt.executeQuery( statement);
+
+                List<String> columnNames = new ArrayList<>();
+
+                // get names of columns from ResultSet
+                ResultSetMetaData resultSetMetaData = rs.getMetaData();
+                for(int i = 1; i <= resultSetMetaData.getColumnCount(); i++){
+                    columnNames.add(resultSetMetaData.getColumnLabel(i));
+                }
+
+                while (rs.next()) {
+                    List<Object> rowData = new ArrayList<>();
+                    for (int i = 1; i <= resultSetMetaData.getColumnCount(); i++) {
+                        rowData.add(rs.getObject(i));
+                    }
+
+                    for (int colIndex = 0; colIndex < resultSetMetaData.getColumnCount(); colIndex++) {
+                        list.add(new ResponseModel(columnNames.get(colIndex),rowData.get(colIndex).toString()));
+                    }
+                }
+
+                rs.close();
+
+                stmt.close();
+
+                connection.close();
+
+            } catch ( Exception e ) {
+
+                System.err.println( e.getClass().getName()+": "+ e.getMessage() );
+
+                System.exit(0);
+
+            }
+            System.out.println("Data Retrieved Successfully ..");
+        }
+        return list;
     }
     public Question getSelectQuestion() {
         readQuestionsFile("select");

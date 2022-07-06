@@ -5,6 +5,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {DOCUMENT} from "@angular/common";
 import {Question} from "../service/question";
 import {J} from "@angular/cdk/keycodes";
+import {ModelStatementQuestion} from "../service/model-statement-question";
 
 @Component({
   selector: 'app-question-page',
@@ -16,6 +17,7 @@ export class QuestionPageComponent implements OnInit {
     statement: new FormControl("")
   });
   typeOfQuestion = "";
+  question: Question= new Question("","","", "");
   questionText = "";
 
   constructor(private snackBar: MatSnackBar, private questionService: QuestionService, @Inject(DOCUMENT) private document: Document) {
@@ -45,6 +47,7 @@ export class QuestionPageComponent implements OnInit {
     }
   }
   async waitForQuestion(param: any) {
+    this.question = await param;
     this.questionText = (await param).question;
   }
 
@@ -53,18 +56,22 @@ export class QuestionPageComponent implements OnInit {
 
   validateStatementOnClick() {
     let statement = this.validateStatement.value.statement;
-    this.questionService.validateStatement(statement)
-      .subscribe({
-        next: (v) => {
-          this.snackBar.open("Correct!", "Hide", {
+    if (statement != null) {
+      let data = new ModelStatementQuestion(statement, this.question);
+      this.questionService.validateStatement(data)
+        .subscribe({
+          next: (v) => {
+            this.snackBar.open("Correct!", "Hide", {
+              duration: 3000,
+            } );
+            this.validateStatement.reset();
+          },
+          error: (e) => this.snackBar.open("Error: " + e, "Hide", {
             duration: 3000,
-          } );
-          this.validateStatement.reset();
-        },
-        error: (e) => this.snackBar.open("Error: " + e, "Hide", {
-          duration: 3000,
-        } )
-      });
-    console.log(statement);
+          } )
+        });
+      console.log(statement);
+    }
+
   }
 }

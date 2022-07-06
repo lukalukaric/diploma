@@ -2,6 +2,9 @@ package diploma.lukaric.backend;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.io.Console;
+import java.util.ArrayList;
+
 @org.springframework.web.bind.annotation.RestController
 @RequestMapping(path = "/api")
 public class RestController {
@@ -13,9 +16,9 @@ public class RestController {
 
     @CrossOrigin("http://localhost:4200")
     @PostMapping("/validate")
-    public RestResponse validateSQLStatement(@RequestBody String statement) {
-        service.validateSQLStatement(statement);
-        return new RestResponse(200,"OK");
+    public RestResponse validateSQLStatement(@RequestBody ModelStatementQuestion modelStatementQuestion) {
+        ArrayList<ResponseModel> data = service.validateSQLStatement(modelStatementQuestion.getStatement(), modelStatementQuestion.getQuestion());
+        return new RestResponse(200,"OK", data);
     }
 
     @GetMapping(path = "/randomQuestion")
