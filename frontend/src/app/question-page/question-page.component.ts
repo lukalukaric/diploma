@@ -4,8 +4,8 @@ import {QuestionService} from "../service/question-service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {DOCUMENT} from "@angular/common";
 import {Question} from "../service/question";
-import {J} from "@angular/cdk/keycodes";
 import {ModelStatementQuestion} from "../service/model-statement-question";
+import {RestResponse} from "../service/rest-response";
 
 @Component({
   selector: 'app-question-page',
@@ -14,11 +14,13 @@ import {ModelStatementQuestion} from "../service/model-statement-question";
 })
 export class QuestionPageComponent implements OnInit {
   validateStatement = new FormGroup({
-    statement: new FormControl("")
+    statement: new FormControl(""),
   });
   typeOfQuestion = "";
   question: Question= new Question("","","", "");
   questionText = "";
+  realAnswer: any;
+  usersAnswer: any;
 
   constructor(private snackBar: MatSnackBar, private questionService: QuestionService, @Inject(DOCUMENT) private document: Document) {
     if(this.document.location.href.endsWith("selectQuestion")){
@@ -49,6 +51,7 @@ export class QuestionPageComponent implements OnInit {
   async waitForQuestion(param: any) {
     this.question = await param;
     this.questionText = (await param).question;
+    this.realAnswer = this.question.answer;
   }
 
   ngOnInit(): void {
@@ -60,15 +63,20 @@ export class QuestionPageComponent implements OnInit {
       let data = new ModelStatementQuestion(statement, this.question);
       this.questionService.validateStatement(data)
         .subscribe({
-          next: (v) => {
-            this.snackBar.open("Correct!", "Hide", {
+          next: (v: RestResponse) => {
+              this.usersAnswer = v;
+              //TODO fix that shitt bruda
+              console.log('all', v);
+              console.log('info' , v.info);
+              console.log('status' , v.status);
+              console.log('data' , v.data);
+              this.snackBar.open("Correct!", "Hide", {
               duration: 3000,
             } );
-            this.validateStatement.reset();
           },
           error: (e) => this.snackBar.open("Error: " + e, "Hide", {
             duration: 3000,
-          } )
+          } ),
         });
       console.log(statement);
     }

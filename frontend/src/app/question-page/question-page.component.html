@@ -9,5 +9,13 @@
     <div>
       <button mat-raised-button color="primary" (click)="validateStatementOnClick()">Preizkusi</button>
     </div>
+    <div>
+      <div>
+        <textarea type="text" placeholder="Tvoja rešitev" rows="5" readonly>{{ usersAnswer }}</textarea>
+      </div>
+      <div>
+        <textarea type="text" placeholder="Pravilna rešitev" rows="5" readonly>{{ realAnswer }}</textarea>
+      </div>
+    </div>
   </form>
 </div>
