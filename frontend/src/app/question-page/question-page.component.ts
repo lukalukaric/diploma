@@ -58,15 +58,30 @@ export class QuestionPageComponent implements OnInit {
   }
 
   fillFields(restResponse : RestResponse){
-    this.usersAnswer = restResponse;
-    //TODO fix that shitt bruda
-
-    //console.log('status' , restResponse.status);
-    //console.log('data' , restResponse.data);
-
-    this.snackBar.open("Correct!", "Hide", {
-      duration: 3000,
-    } );
+    if(restResponse.status === 200){
+      this.snackBar.open("Pravilno! :)", "Skrij", {
+        duration: 3000,
+      } );
+    }
+    else{
+      this.snackBar.open("Ne pravilno :( Poizkusi ponovno.", "Skrij", {
+        duration: 3000,
+      } );
+    }
+    this.usersAnswer = "";
+    if(this.question.type === "aggregate"){
+      // @ts-ignore
+      this.usersAnswer = restResponse.data.pop().text;
+    }
+    else{
+      restResponse.data.forEach(value => {
+        this.usersAnswer += value.name + " ";
+      });
+      this.usersAnswer += "\n";
+      restResponse.data.forEach(value => {
+        this.usersAnswer += value.text + " ";
+      });
+    }
 
 
   }
@@ -77,9 +92,14 @@ export class QuestionPageComponent implements OnInit {
       let data = new ModelStatementQuestion(statement, this.question);
       this.questionService.validateStatement(data)
         .subscribe({
-          next: (v) => {
-            console.log('all', v);
-            console.log('info' , v.info);
+          next: v => {
+            // @ts-ignore
+            let response = JSON.parse(v);
+            console.log('all', response);
+            console.log('status' ,response.status);
+            console.log('info' ,response.info);
+            console.log('data' ,response.data);
+            this.fillFields(response);
           },
           error: (e) => this.snackBar.open("Error: " + e, "Hide", {
             duration: 3000,
