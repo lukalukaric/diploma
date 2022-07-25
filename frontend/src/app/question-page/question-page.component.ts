@@ -51,7 +51,13 @@ export class QuestionPageComponent implements OnInit {
   async waitForQuestion(param: any) {
     this.question = await param;
     this.questionText = (await param).question;
-    this.realAnswer = this.question.answer;
+    if(this.question.type === "aggregate"){
+      this.realAnswer = "Pravilna rešitev je: " + this.question.answer;
+    }
+    else{
+      this.realAnswer = "Pravilna rešitev je ID: " + this.question.answer;
+    }
+
   }
 
   ngOnInit(): void {

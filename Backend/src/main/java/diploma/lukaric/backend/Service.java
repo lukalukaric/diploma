@@ -1,23 +1,49 @@
 package diploma.lukaric.backend;
 
-import diploma.lukaric.backend.db.AddressRepository;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.*;
-import java.util.logging.Logger;
 
 @org.springframework.stereotype.Service
 public class Service {
     private List<Question> questions = new ArrayList<>();
     public ArrayList<ResponseModel> validateSQLStatement(String statement, Question question){
-        ArrayList<ResponseModel> list = new ArrayList<>();
         System.out.println("tip: " + question.getType());
-
-
         System.out.println("dobili smo: " + statement);
 
+        if(checkStatementForHavingInjection(statement)){
+            return null;
+        }
+
+        ArrayList<ResponseModel> list = executeStatement(statement);
+
+        System.out.println("Data Retrieved Successfully ..");
+
+        return list;
+    }
+
+    private boolean checkStatementForHavingInjection(String statement) {
+        // if statement does not have ;
+        if(!statement.contains(";")){
+            System.out.println("Injection detected: Missing ';'.");
+            return true;
+        }
+        // if statement contains ; more than once
+        else if(statement.length() - statement.replaceAll(";","").length() > 1) {
+            System.out.println("Injection detected: Detected ';' more then once.");
+            return true;
+        }
+        // if statement contains DROP
+        else if(statement.contains("DROP")){
+            System.out.println("Injection detected: Detected 'DROP'.");
+            return true;
+        }
+        return false;
+    }
+
+    private ArrayList<ResponseModel> executeStatement(String statement){
+        ArrayList<ResponseModel> list = new ArrayList<>();
         Connection connection;
 
         try {
@@ -28,7 +54,6 @@ public class Service {
             Statement stmt = connection.createStatement();
 
             ResultSet rs = stmt.executeQuery( statement);
-
 
             List<String> columnNames = new ArrayList<>();
 
@@ -61,7 +86,6 @@ public class Service {
             return null;
 
         }
-        System.out.println("Data Retrieved Successfully ..");
 
         return list;
     }

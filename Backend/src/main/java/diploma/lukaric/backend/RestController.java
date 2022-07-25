@@ -18,6 +18,8 @@ public class RestController {
     @PostMapping("/validate")
     public RestResponse validateSQLStatement(@RequestBody ModelStatementQuestion modelStatementQuestion) {
         ArrayList<ResponseModel> data = service.validateSQLStatement(modelStatementQuestion.getStatement(), modelStatementQuestion.getQuestion());
+        if(data == null)
+            return new RestResponse(123, "INJECTION", null);
         return new RestResponse(200,"OK", data);
     }
 
