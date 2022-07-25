@@ -17,9 +17,18 @@ public class RestController {
     @CrossOrigin("http://localhost:4200")
     @PostMapping("/validate")
     public RestResponse validateSQLStatement(@RequestBody ModelStatementQuestion modelStatementQuestion) {
-        ArrayList<ResponseModel> data = service.validateSQLStatement(modelStatementQuestion.getStatement(), modelStatementQuestion.getQuestion());
-        if(data == null)
-            return new RestResponse(123, "INJECTION", null);
+        String statement = modelStatementQuestion.getStatement();
+        Question question = modelStatementQuestion.getQuestion();
+
+        if(service.checkStatementForHavingInjection(statement)){
+            return new RestResponse(1111,"INJECTION", null);
+        }
+
+        ArrayList<ResponseModel> data = service.validateSQLStatement(statement, question);
+
+        if(!service.checkIfStatementIsCorrect(question, data))
+            return new RestResponse(2222,"NOT MATCHING", data);
+
         return new RestResponse(200,"OK", data);
     }
 

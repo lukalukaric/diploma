@@ -12,18 +12,23 @@ public class Service {
         System.out.println("tip: " + question.getType());
         System.out.println("dobili smo: " + statement);
 
-        if(checkStatementForHavingInjection(statement)){
-            return null;
-        }
-
         ArrayList<ResponseModel> list = executeStatement(statement);
-
         System.out.println("Data Retrieved Successfully ..");
 
         return list;
     }
 
-    private boolean checkStatementForHavingInjection(String statement) {
+    public boolean checkIfStatementIsCorrect(Question question, ArrayList<ResponseModel> list) {
+        if(question.getType().equals("aggregate")){
+            return list.get(0).getText().equals(question.getAnswer());
+        }
+        else {
+            System.out.println("brez: " + question.getType());
+        }
+        return false;
+    }
+
+    public boolean checkStatementForHavingInjection(String statement) {
         // if statement does not have ;
         if(!statement.contains(";")){
             System.out.println("Injection detected: Missing ';'.");
