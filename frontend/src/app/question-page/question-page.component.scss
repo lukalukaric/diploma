@@ -1,0 +1,27 @@
+#questionText{
+  margin: 50px;
+  text-align: center;
+}
+#formFieldInputBox{
+  display: flex;
+  justify-content: center;
+}
+#formFieldInputField{
+  width: 40%;
+  text-align: center;
+}
+#formFieldInputButton{
+  text-align: center;
+  margin: 20px;
+}
+#usersAnswer, #realAnswer{
+  resize: none;
+  width: 100%;
+}
+#answersBox{
+  text-align: center;
+}
+#usersAnswerBox, #realAnswerBox{
+  width: 500px;
+  padding: 150px 50px;
+}

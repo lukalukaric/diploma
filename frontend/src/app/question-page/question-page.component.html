@@ -1,21 +1,28 @@
 <div class="container">
   <form [formGroup]="validateStatement">
     <div>
-      <h2> {{ questionText }}</h2>
-      <mat-form-field>
-        <input matInput type="text" placeholder="SQL Stavek" formControlName="statement" required>
-      </mat-form-field>
+      <h2 id="questionText"> {{ questionText }}</h2>
+      <div id="formFieldInputBox">
+        <mat-form-field id="formFieldInputField">
+          <textarea matInput id="answerInputField" type="text" placeholder="SQL Stavek" formControlName="statement" required cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10"></textarea>
+        </mat-form-field>
+      </div>
+
     </div>
-    <div>
+    <div id="formFieldInputButton">
       <button mat-raised-button color="primary" (click)="validateStatementOnClick()">Preizkusi</button>
     </div>
-    <div>
-      <div>
-        <textarea type="text" placeholder="Tvoja rešitev" rows="5" readonly>{{ usersAnswer }}</textarea>
-      </div>
-      <div>
-        <textarea type="text" placeholder="Pravilna rešitev" rows="5" readonly>{{ realAnswer }}</textarea>
-      </div>
+    <div id="answersBox">
+      <mat-form-field id="usersAnswerBox">
+        <div>
+          <textarea id="usersAnswer" matInput type="text" cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10" readonly>{{ usersAnswer }}</textarea>
+        </div>
+      </mat-form-field>
+      <mat-form-field id="realAnswerBox">
+        <div>
+          <textarea id="realAnswer" matInput type="text" cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10" readonly>{{ realAnswer }}</textarea>
+        </div>
+      </mat-form-field>
     </div>
   </form>
 </div>

@@ -77,7 +77,7 @@ export class QuestionPageComponent implements OnInit {
     this.usersAnswer = "";
     if(this.question.type === "aggregate"){
       // @ts-ignore
-      this.usersAnswer = restResponse.data.pop().text;
+      this.usersAnswer = "Vaša rešitev: " + restResponse.data.pop().text;
     }
     else{
       restResponse.data.forEach(value => {
