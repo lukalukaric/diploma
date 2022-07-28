@@ -17,7 +17,7 @@ export class QuestionPageComponent implements OnInit {
     statement: new FormControl(""),
   });
   typeOfQuestion = "";
-  question: Question= new Question("","","", "");
+  question: Question= new Question("","","", "", "");
   questionText = "";
   realAnswer: any;
   usersAnswer: any;
@@ -51,13 +51,6 @@ export class QuestionPageComponent implements OnInit {
   async waitForQuestion(param: any) {
     this.question = await param;
     this.questionText = (await param).question;
-    if(this.question.type === "aggregate"){
-      this.realAnswer = "Pravilna rešitev je: " + this.question.answer;
-    }
-    else{
-      this.realAnswer = "Pravilna rešitev je ID: " + this.question.answer;
-    }
-
   }
 
   ngOnInit(): void {
@@ -75,21 +68,12 @@ export class QuestionPageComponent implements OnInit {
       } );
     }
     this.usersAnswer = "";
-    if(this.question.type === "aggregate"){
-      // @ts-ignore
-      this.usersAnswer = "Vaša rešitev: " + restResponse.data.pop().text;
-    }
-    else{
-      restResponse.data.forEach(value => {
-        this.usersAnswer += value.name + " ";
-      });
-      this.usersAnswer += "\n";
-      restResponse.data.forEach(value => {
-        this.usersAnswer += value.text + " ";
-      });
-    }
 
+    restResponse.data.forEach(value => {
+      this.usersAnswer += value.text + " ";
+    });
 
+    this.realAnswer = restResponse.answer;
   }
 
   validateStatementOnClick() {
@@ -105,6 +89,7 @@ export class QuestionPageComponent implements OnInit {
             console.log('status' ,response.status);
             console.log('info' ,response.info);
             console.log('data' ,response.data);
+            console.log('answer', response.answer);
             this.fillFields(response);
           },
           error: (e) => this.snackBar.open("Error: " + e, "Hide", {
