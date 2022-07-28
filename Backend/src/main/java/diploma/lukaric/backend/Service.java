@@ -19,23 +19,25 @@ public class Service {
     }
 
     public boolean checkIfStatementIsCorrect(Question question, ArrayList<ResponseModel> list) {
-        if(question.getType().equals("aggregate")){
-            return list.get(0).getText().equals(question.getAnswer());
-        }
-        else {
-            ArrayList<ResponseModel> correctAnswer = executeStatement(question.getAnswer());
-            assert correctAnswer != null;
-            if(correctAnswer.size() != list.size()){
-                return false;
-            }
 
-            int correctCounter = 0;
-            for (int i = 0; i < correctAnswer.size(); i++){
-                if(correctAnswer.get(i).getText().equals(list.get(i).getText()))
-                    correctCounter++;
-            }
-            return correctCounter == correctAnswer.size();
+        ArrayList<ResponseModel> correctAnswer = executeStatement(question.getCorrectStatement());
+        assert correctAnswer != null;
+
+        StringBuilder str = new StringBuilder();
+        correctAnswer.forEach(tmp -> str.append(tmp.getText()).append(" "));
+        question.setAnswer(String.valueOf(str));
+
+        if(correctAnswer.size() != list.size()){
+            return false;
         }
+
+        int correctCounter = 0;
+        for (int i = 0; i < correctAnswer.size(); i++){
+            if(correctAnswer.get(i).getText().equals(list.get(i).getText()))
+                correctCounter++;
+        }
+        return correctCounter == correctAnswer.size();
+
     }
 
     public boolean checkStatementForHavingInjection(String statement) {
@@ -154,17 +156,17 @@ public class Service {
             while (scanner.hasNextLine()) {
                 String[] line = scanner.nextLine().split("\"");
                 if(filter.equals("random")){
-                    questions.add(new Question(line[1], line[3], line[5], line[7]));
+                    questions.add(new Question(line[1], line[3], line[5], line[7], null));
                 }
                 else if(line[7].equals(filter)){
-                    questions.add(new Question(line[1], line[3], line[5], line[7]));
+                    questions.add(new Question(line[1], line[3], line[5], line[7], null));
                 }
 
             }
             scanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("ERROR: Unable to read file");
-            questions.add(new Question("-1", "Unable to read file", "ERROR", "ERROR"));
+            questions.add(new Question("-1", "Unable to read file", "ERROR", "ERROR", null));
         }
     }
 }

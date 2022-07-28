@@ -15,4 +15,6 @@ public class RestResponse {
     private int status;
     private String info;
     private ArrayList<ResponseModel> data;
+
+    private String answer;
 }

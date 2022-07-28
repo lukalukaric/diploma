@@ -21,15 +21,15 @@ public class RestController {
         Question question = modelStatementQuestion.getQuestion();
 
         if(service.checkStatementForHavingInjection(statement)){
-            return new RestResponse(1111,"INJECTION", null);
+            return new RestResponse(1111,"INJECTION", null, null);
         }
 
         ArrayList<ResponseModel> data = service.validateSQLStatement(statement, question);
 
         if(!service.checkIfStatementIsCorrect(question, data))
-            return new RestResponse(2222,"NOT MATCHING", data);
+            return new RestResponse(2222,"NOT MATCHING", data, question.getAnswer());
 
-        return new RestResponse(200,"OK", data);
+        return new RestResponse(200,"OK", data, question.getAnswer());
     }
 
     @GetMapping(path = "/randomQuestion")
