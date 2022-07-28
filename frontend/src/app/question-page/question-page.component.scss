@@ -23,5 +23,20 @@
 }
 #usersAnswerBox, #realAnswerBox{
   width: 500px;
-  padding: 150px 50px;
+  padding: 150px 50px 50px 50px;
+}
+#green-done-icon{
+  color: green;
+  font-size: 100px;
+  height: 100px ;
+  width: 100px;
+}
+#red-disabled-icon{
+  color: red;
+  font-size: 100px;
+  height: 100px ;
+  width: 100px;
+}
+#iconBox{
+  text-align: center;
 }

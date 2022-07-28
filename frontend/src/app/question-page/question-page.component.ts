@@ -21,6 +21,9 @@ export class QuestionPageComponent implements OnInit {
   questionText = "";
   realAnswer: any;
   usersAnswer: any;
+  showAnswers = false;
+  correctIcon = false;
+  wrongIcon = false;
 
   constructor(private snackBar: MatSnackBar, private questionService: QuestionService, @Inject(DOCUMENT) private document: Document) {
     if(this.document.location.href.endsWith("selectQuestion")){
@@ -58,11 +61,15 @@ export class QuestionPageComponent implements OnInit {
 
   fillFields(restResponse : RestResponse){
     if(restResponse.status === 200){
+      this.correctIcon = true;
+      this.wrongIcon = false;
       this.snackBar.open("Pravilno! :)", "Skrij", {
         duration: 3000,
       } );
     }
     else{
+      this.correctIcon = false;
+      this.wrongIcon = true;
       this.snackBar.open("Ne pravilno :( Poizkusi ponovno.", "Skrij", {
         duration: 3000,
       } );
@@ -98,5 +105,6 @@ export class QuestionPageComponent implements OnInit {
         });
       console.log(statement);
     }
+    this.showAnswers = true;
   }
 }

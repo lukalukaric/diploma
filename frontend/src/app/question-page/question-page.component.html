@@ -12,7 +12,7 @@
     <div id="formFieldInputButton">
       <button mat-raised-button color="primary" (click)="validateStatementOnClick()">Preizkusi</button>
     </div>
-    <div id="answersBox">
+    <div id="answersBox" *ngIf="showAnswers">
       <mat-form-field id="usersAnswerBox">
         <div>
           <textarea id="usersAnswer" matInput type="text" cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10" readonly>{{ usersAnswer }}</textarea>
@@ -23,6 +23,10 @@
           <textarea id="realAnswer" matInput type="text" cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10" readonly>{{ realAnswer }}</textarea>
         </div>
       </mat-form-field>
+    </div>
+    <div id="iconBox">
+      <mat-icon id="green-done-icon" *ngIf="correctIcon">done</mat-icon>
+      <mat-icon id="red-disabled-icon" *ngIf="wrongIcon">disabled_by_default</mat-icon>
     </div>
   </form>
 </div>
