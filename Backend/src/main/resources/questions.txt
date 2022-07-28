@@ -1,3 +1,3 @@
 "1" "Koliko študentev je iz Maribora?" "3" "aggregate"
 "2" "Koliko organizatorjev je iz Avstrije?" "2" "aggregate"
-"3" "Prikaži ime in priimek vseh študentev, ki prihajajo iz Ljubljane" "1,2" "select"
+"3" "Prikaži ID, ime in priimek vseh študentev, ki prihajajo iz Ljubljane" "SELECT id, firstname, lastname FROM student;" "select"

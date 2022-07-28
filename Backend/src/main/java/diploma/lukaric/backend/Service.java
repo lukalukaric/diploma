@@ -7,7 +7,7 @@ import java.util.*;
 
 @org.springframework.stereotype.Service
 public class Service {
-    private List<Question> questions = new ArrayList<>();
+    private final List<Question> questions = new ArrayList<>();
     public ArrayList<ResponseModel> validateSQLStatement(String statement, Question question){
         System.out.println("tip: " + question.getType());
         System.out.println("dobili smo: " + statement);
@@ -23,9 +23,19 @@ public class Service {
             return list.get(0).getText().equals(question.getAnswer());
         }
         else {
-            System.out.println("brez: " + question.getType());
+            ArrayList<ResponseModel> correctAnswer = executeStatement(question.getAnswer());
+            assert correctAnswer != null;
+            if(correctAnswer.size() != list.size()){
+                return false;
+            }
+
+            int correctCounter = 0;
+            for (int i = 0; i < correctAnswer.size(); i++){
+                if(correctAnswer.get(i).getText().equals(list.get(i).getText()))
+                    correctCounter++;
+            }
+            return correctCounter == correctAnswer.size();
         }
-        return false;
     }
 
     public boolean checkStatementForHavingInjection(String statement) {
