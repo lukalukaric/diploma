@@ -12,13 +12,13 @@
     <div id="formFieldInputButton">
       <button mat-raised-button color="primary" (click)="validateStatementOnClick()">Preizkusi</button>
     </div>
-    <div id="answersBox" *ngIf="showAnswers">
-      <mat-form-field id="usersAnswerBox">
+    <div id="answersBox">
+      <mat-form-field id="usersAnswerBox" *ngIf="showUsersAnswer">
         <div>
           <textarea id="usersAnswer" matInput type="text" cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10" readonly>{{ usersAnswer }}</textarea>
         </div>
       </mat-form-field>
-      <mat-form-field id="realAnswerBox">
+      <mat-form-field id="realAnswerBox" *ngIf="showRealAnswer">
         <div>
           <textarea id="realAnswer" matInput type="text" cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10" readonly>{{ realAnswer }}</textarea>
         </div>

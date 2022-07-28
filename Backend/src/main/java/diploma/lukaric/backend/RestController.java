@@ -20,14 +20,17 @@ public class RestController {
         String statement = modelStatementQuestion.getStatement();
         Question question = modelStatementQuestion.getQuestion();
 
-        if(service.checkStatementForHavingInjection(statement)){
-            return new RestResponse(1111,"INJECTION", null, null);
+        int statusCode = service.checkStatementForHavingInjection(statement);
+        if( statusCode != 1110){
+            return new RestResponse(statusCode,"Failed check for having injection.", null, null);
         }
 
         ArrayList<ResponseModel> data = service.validateSQLStatement(statement, question);
-
+        // TODO try to send error on 4000 code
+        if (data == null)
+            return new RestResponse(4000,"ERROR", null, null);
         if(!service.checkIfStatementIsCorrect(question, data))
-            return new RestResponse(2222,"NOT MATCHING", data, question.getAnswer());
+            return new RestResponse(3000,"NOT MATCHING", data, question.getAnswer());
 
         return new RestResponse(200,"OK", data, question.getAnswer());
     }

@@ -21,9 +21,10 @@ export class QuestionPageComponent implements OnInit {
   questionText = "";
   realAnswer: any;
   usersAnswer: any;
-  showAnswers = false;
   correctIcon = false;
   wrongIcon = false;
+  showUsersAnswer = false;
+  showRealAnswer = false;
 
   constructor(private snackBar: MatSnackBar, private questionService: QuestionService, @Inject(DOCUMENT) private document: Document) {
     if(this.document.location.href.endsWith("selectQuestion")){
@@ -60,9 +61,12 @@ export class QuestionPageComponent implements OnInit {
   }
 
   fillFields(restResponse : RestResponse){
+    this.realAnswer = restResponse.answer;
     if(restResponse.status === 200){
       this.correctIcon = true;
       this.wrongIcon = false;
+      this.showUsersAnswer = true;
+      this.showRealAnswer = true;
       this.snackBar.open("Pravilno! :)", "Skrij", {
         duration: 3000,
       } );
@@ -70,9 +74,44 @@ export class QuestionPageComponent implements OnInit {
     else{
       this.correctIcon = false;
       this.wrongIcon = true;
-      this.snackBar.open("Ne pravilno :( Poizkusi ponovno.", "Skrij", {
-        duration: 3000,
-      } );
+      this.showRealAnswer = true;
+      this.showUsersAnswer = false;
+      if(restResponse.status === 1111){
+        this.realAnswer = "Manjkajoče podpičje.";
+        this.snackBar.open("Manjkajoče podpičje.", "Skrij", {
+          duration: 3000,
+        } );
+      }
+      else if(restResponse.status === 1112){
+        this.realAnswer = "Vsebuje več kot eno podpičje.";
+        this.snackBar.open("Vsebuje več kot eno podpičje.", "Skrij", {
+          duration: 3000,
+        } );
+      }
+      else if(restResponse.status === 1113){
+        this.realAnswer = "Vsebuje ne dovoljeno besedo.";
+        this.snackBar.open("Vsebuje ne dovoljeno besedo.", "Skrij", {
+          duration: 3000,
+        } );
+      }
+      else if(restResponse.status === 3000){
+        this.showUsersAnswer = true;
+        this.snackBar.open("Ne pravilno :( Poizkusi ponovno.", "Skrij", {
+          duration: 3000,
+        } );
+      }
+      else if(restResponse.status === 4000){
+        this.realAnswer = "Sintaktična napaka.";
+        this.snackBar.open("Sintaktična napaka.", "Skrij", {
+          duration: 3000,
+        } );
+      }
+      else{
+        this.realAnswer = "Prišlo je do napake. Iskreno se vam opravičujemo";
+        this.snackBar.open("Prišlo je do napake.", "Skrij", {
+          duration: 3000,
+        } );
+      }
     }
     this.usersAnswer = "";
 
@@ -80,7 +119,7 @@ export class QuestionPageComponent implements OnInit {
       this.usersAnswer += value.text + " ";
     });
 
-    this.realAnswer = restResponse.answer;
+
   }
 
   validateStatementOnClick() {
@@ -105,6 +144,5 @@ export class QuestionPageComponent implements OnInit {
         });
       console.log(statement);
     }
-    this.showAnswers = true;
   }
 }

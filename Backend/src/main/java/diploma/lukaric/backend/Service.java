@@ -13,7 +13,6 @@ public class Service {
         System.out.println("dobili smo: " + statement);
 
         ArrayList<ResponseModel> list = executeStatement(statement);
-        System.out.println("Data Retrieved Successfully ..");
 
         return list;
     }
@@ -40,23 +39,23 @@ public class Service {
 
     }
 
-    public boolean checkStatementForHavingInjection(String statement) {
+    public int checkStatementForHavingInjection(String statement) {
         // if statement does not have ;
         if(!statement.contains(";")){
             System.out.println("Injection detected: Missing ';'.");
-            return true;
+            return 1111;
         }
         // if statement contains ; more than once
         else if(statement.length() - statement.replaceAll(";","").length() > 1) {
             System.out.println("Injection detected: Detected ';' more then once.");
-            return true;
+            return 1112;
         }
         // if statement contains DROP
         else if(statement.contains("DROP")){
             System.out.println("Injection detected: Detected 'DROP'.");
-            return true;
+            return 1113;
         }
-        return false;
+        return 1110;
     }
 
     private ArrayList<ResponseModel> executeStatement(String statement){
