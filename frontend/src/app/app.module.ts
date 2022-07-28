@@ -15,6 +15,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {QuestionService} from "./service/question-service";
 import {HttpClientModule} from "@angular/common/http";
+import { MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import {HttpClientModule} from "@angular/common/http";
     MatSnackBarModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatIconModule,
   ],
   providers: [QuestionService],
   bootstrap: [AppComponent]
