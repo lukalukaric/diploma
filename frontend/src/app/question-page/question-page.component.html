@@ -13,12 +13,12 @@
       <button mat-raised-button color="primary" (click)="validateStatementOnClick()">Preizkusi</button>
     </div>
     <div id="answersBox">
-      <mat-form-field id="usersAnswerBox" *ngIf="showUsersAnswer">
+      <mat-form-field id="usersAnswerBox" *ngIf="showUsersAnswer" hintLabel="Vaš odgovor">
         <div>
           <textarea id="usersAnswer" matInput type="text" cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10" readonly>{{ usersAnswer }}</textarea>
         </div>
       </mat-form-field>
-      <mat-form-field id="realAnswerBox" *ngIf="showRealAnswer">
+      <mat-form-field id="realAnswerBox" *ngIf="showRealAnswer" hintLabel="Pravilen odgovor">
         <div>
           <textarea id="realAnswer" matInput type="text" cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10" readonly>{{ realAnswer }}</textarea>
         </div>
