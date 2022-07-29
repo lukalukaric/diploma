@@ -25,6 +25,8 @@ export class QuestionPageComponent implements OnInit {
   wrongIcon = false;
   showUsersAnswer = false;
   showRealAnswer = false;
+  bigImage = true;
+  smallImage = false;
 
   constructor(private snackBar: MatSnackBar, private questionService: QuestionService, @Inject(DOCUMENT) private document: Document) {
     if(this.document.location.href.endsWith("selectQuestion")){
@@ -61,71 +63,84 @@ export class QuestionPageComponent implements OnInit {
   }
 
   fillFields(restResponse : RestResponse){
-    this.realAnswer = restResponse.answer;
+    this.bigImage = false;
+    this.smallImage = true;
+
     if(restResponse.status === 200){
+      this.realAnswer = restResponse.answer;
       this.correctIcon = true;
       this.wrongIcon = false;
       this.showUsersAnswer = true;
       this.showRealAnswer = true;
+      this.usersAnswer = "";
+
+      restResponse.data.forEach(value => {
+        if(value.name === "NEW LINE")
+          this.usersAnswer += "\n";
+        else
+          this.usersAnswer += value.text + "   ";
+      });
       this.snackBar.open("Pravilno! :)", "Skrij", {
+        duration: 3000,
+      } );
+    }
+    else if(restResponse.status === 3000){
+      this.realAnswer = restResponse.answer;
+      this.correctIcon = false;
+      this.wrongIcon = true;
+      this.showRealAnswer = true;
+      this.showUsersAnswer = true;
+      this.usersAnswer = "";
+
+      restResponse.data.forEach(value => {
+        if(value.name === "NEW LINE")
+          this.usersAnswer += "\n";
+        else
+          this.usersAnswer += value.text + "   ";
+      });
+      this.snackBar.open("Ne pravilno :( Poizkusi ponovno.", "Skrij", {
         duration: 3000,
       } );
     }
     else{
       this.correctIcon = false;
       this.wrongIcon = true;
-      this.showRealAnswer = true;
-      this.showUsersAnswer = false;
+      this.showRealAnswer = false;
+      this.showUsersAnswer = true;
       if(restResponse.status === 1111){
-        this.realAnswer = "Manjkajoče podpičje.";
+        this.usersAnswer = "Manjkajoče podpičje.";
         this.snackBar.open("Manjkajoče podpičje.", "Skrij", {
           duration: 3000,
         } );
       }
       else if(restResponse.status === 1112){
-        this.realAnswer = "Vsebuje več kot eno podpičje.";
+        this.usersAnswer = "Vsebuje več kot eno podpičje.";
         this.snackBar.open("Vsebuje več kot eno podpičje.", "Skrij", {
           duration: 3000,
         } );
       }
       else if(restResponse.status === 1113){
-        this.realAnswer = "Vsebuje ne dovoljeno besedo.";
+        this.usersAnswer = "Vsebuje ne dovoljeno besedo.";
         this.snackBar.open("Vsebuje ne dovoljeno besedo.", "Skrij", {
           duration: 3000,
         } );
       }
-      else if(restResponse.status === 3000){
-        this.showUsersAnswer = true;
-        this.snackBar.open("Ne pravilno :( Poizkusi ponovno.", "Skrij", {
-          duration: 3000,
-        } );
-      }
       else if(restResponse.status === 4000){
-        this.realAnswer = "Sintaktična napaka.\n";
+        this.usersAnswer = "Sintaktična napaka.\n";
         restResponse.data.forEach(value => {
-          this.realAnswer += value.text + " ";
+          this.usersAnswer += value.text + " ";
         });
         this.snackBar.open("Sintaktična napaka.", "Skrij", {
           duration: 3000,
         } );
       }
       else{
-        this.realAnswer = "Prišlo je do napake. Iskreno se vam opravičujemo";
+        this.usersAnswer = "Prišlo je do napake. Iskreno se vam opravičujemo";
         this.snackBar.open("Prišlo je do napake.", "Skrij", {
           duration: 3000,
         } );
       }
     }
-    this.usersAnswer = "";
-
-    restResponse.data.forEach(value => {
-      if(value.name === "NEW LINE")
-        this.usersAnswer += "\n";
-      else
-        this.usersAnswer += value.text + "   ";
-    });
-
-
   }
 
   validateStatementOnClick() {
