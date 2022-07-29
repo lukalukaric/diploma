@@ -23,7 +23,14 @@ public class Service {
         assert correctAnswer != null;
 
         StringBuilder str = new StringBuilder();
-        correctAnswer.forEach(tmp -> str.append(tmp.getText()).append(" "));
+
+        for (int i = 0; i < correctAnswer.size(); i++){
+            if(correctAnswer.get(i).getName() == "NEW LINE")
+                str.append("\n");
+            else
+                str.append(correctAnswer.get(i).getText()).append("   ");
+        }
+
         question.setAnswer(String.valueOf(str));
 
         if(correctAnswer.size() != list.size()){
@@ -73,12 +80,13 @@ public class Service {
 
             List<String> columnNames = new ArrayList<>();
 
-            // get names of columns from ResultSet
+            //  Get names of columns from ResultSet
             ResultSetMetaData resultSetMetaData = rs.getMetaData();
             for(int i = 1; i <= resultSetMetaData.getColumnCount(); i++){
                 columnNames.add(resultSetMetaData.getColumnLabel(i));
             }
 
+            //  Get data from query and fill the list with ResponseModels
             while (rs.next()) {
                 List<Object> rowData = new ArrayList<>();
                 for (int i = 1; i <= resultSetMetaData.getColumnCount(); i++) {
@@ -87,8 +95,13 @@ public class Service {
 
                 for (int colIndex = 0; colIndex < resultSetMetaData.getColumnCount(); colIndex++) {
                     list.add(new ResponseModel(columnNames.get(colIndex),rowData.get(colIndex).toString()));
+
                 }
+                list.add(new ResponseModel("NEW LINE",""));
             }
+
+            //  Remove last element of list because last element is new empty line
+            list.remove(list.size() - 1);
 
             rs.close();
 

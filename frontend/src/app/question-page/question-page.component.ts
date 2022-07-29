@@ -119,7 +119,10 @@ export class QuestionPageComponent implements OnInit {
     this.usersAnswer = "";
 
     restResponse.data.forEach(value => {
-      this.usersAnswer += value.text + " ";
+      if(value.name === "NEW LINE")
+        this.usersAnswer += "\n";
+      else
+        this.usersAnswer += value.text + "   ";
     });
 
 
