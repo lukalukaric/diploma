@@ -99,7 +99,7 @@ public class Service {
         } catch ( Exception e ) {
 
             System.err.println( e.getClass().getName()+": "+ e.getMessage() );
-            return null;
+            list.add(new ResponseModel("ERROR", e.getMessage()));
 
         }
 

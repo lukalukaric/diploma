@@ -101,7 +101,10 @@ export class QuestionPageComponent implements OnInit {
         } );
       }
       else if(restResponse.status === 4000){
-        this.realAnswer = "Sintaktična napaka.";
+        this.realAnswer = "Sintaktična napaka.\n";
+        restResponse.data.forEach(value => {
+          this.realAnswer += value.text + " ";
+        });
         this.snackBar.open("Sintaktična napaka.", "Skrij", {
           duration: 3000,
         } );

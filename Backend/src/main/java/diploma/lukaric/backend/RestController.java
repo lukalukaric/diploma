@@ -26,9 +26,8 @@ public class RestController {
         }
 
         ArrayList<ResponseModel> data = service.validateSQLStatement(statement, question);
-        // TODO try to send error on 4000 code
-        if (data == null)
-            return new RestResponse(4000,"ERROR", null, null);
+        if (data.size() == 1 && data.get(0).getName() == "ERROR")
+            return new RestResponse(4000,"ERROR", data, null);
         if(!service.checkIfStatementIsCorrect(question, data))
             return new RestResponse(3000,"NOT MATCHING", data, question.getAnswer());
 
