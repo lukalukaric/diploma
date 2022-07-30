@@ -1,1 +1,78 @@
-<p>landing-page works!</p>
+<div>
+  <h1>Pozdravljeni!</h1>
+
+  <p>Ta stran je namenjena učenju in preverjanju znanja stavkov SQL.</p>
+  <p>Za vas smo pripravili povzetek vsega, ki lahko služi kot učenje oziroma ponovitev vašega znanja.</p>
+
+  <h1>Select</h1>
+
+  <p>Izjava SELECT se uporablja za pridobivanje informacij iz podatkove baze iz ene ali več tabel in vrne podatke v obliki tabele.</p>
+  <p>Stavek SELECT se uporablja, da pridobimo eno ali več vrstic podatkov, ki se ujemajo s podanimi kriteriji iz podatkovne baze.</p>
+
+  <p>Primer <b>SELECT</b> stavka, ki nam izpiše ime in priimek vseh študentov:</p>
+  <p><b>SELECT firstname, lastname</b></p>
+  <p><b>FROM student;</b></p>
+
+  <h1>Join</h1>
+
+  <p>Če želimo dostopati do več kot ene tabele naenkrat moramo znati uporabiti JOIN.</p>
+  <p>Poznamo več različnih vrst združevanja ampak za nas bo dovolj naj preprostejši JOIN.</p>
+  <p>Če želimo dostopati do več tabel hkrati moramo vedeti kako so tabele med seboj povezane.</p>
+  <p>To lahko razberemo iz E-R modela, ki je prikazan zraven vsakega vprašanja.</p>
+
+  <p>Primer uporabe <b>JOIN</b> pri poizvedbi za prikaz države in pošte:</p>
+  <p><b>SELECT *</b></p>
+  <p><b>FROM student</b></p>
+  <p><b>JOIN address ON student.FK_address = address.id;</b></p>
+
+  <h1>Agregatne funkcije</h1>
+  <p>Poznamo več agregatnih funkcij, ampak mi bomo spoznali samo naslednje, ki se uporabljajo največ:</p>
+
+  <h2><b>Funkcija COUNT</b></h2>
+  <p>Funkcija <b>COUNT</b> nam vrne število elementov, ki ustrezajo pogojem.</p>
+  <p>Primer uporabe <b>COUNT</b> pri številu vseh tečajev:</p>
+  <p><b>SELECT COUNT (*)</b></p>
+  <p><b>FROM course;</b></p>
+
+  <h2><b>Funkcija AVG</b></h2>
+  <p>Funkcija <b>AVG</b> nam vrne povprečno vrednost, ki ustreza določenim pogojem.</p>
+  <p>Primer uporabe <b>AVG</b> pri povprečni ceni tečajev:</p>
+  <p><b>SELECT AVG (price)</b></p>
+  <p><b>FROM course;</b></p>
+
+
+  <h2><b>Funkcija MIN</b></h2>
+  <p>Funkcija <b>MIN</b> nam vrne najmajnšo vrednost, ki ustreza določenim pogojem.</p>
+  <p>Primer uporabe <b>MIN</b> pri najmanjši ceni tečaja:</p>
+  <p><b>SELECT MIN (price)</b></p>
+  <p><b>FROM course;</b></p>
+
+  <h2><b>Funkcija MAX</b></h2>
+  <p>Funkcija <b>MAX</b> nam vrne največjo vrednost, ki ustreza določenim pogojem.</p>
+  <p>Primer uporabe <b>MAX</b> pri največji ceni tečaja:</p>
+  <p><b>SELECT MAX (price)</b></p>
+  <p><b>FROM course;</b></p>
+
+  <h1>Group by in Order by</h1>
+
+  <p>Z uporabo <b>GROUP BY</b> besede razdelimo vrstice, ki jih dobimo iz stavka SELECT v skupine.</p>
+  <p>Največkrat se uporabljajo z agregatnimi funkcijami, za izračun števila elementov v skupini in podobno.</p>
+  <p>Z uporabo <b>ORDER BY</b> besede pa razvrstimo rezultate po abecednem vrstnem redu. Ali po obratnem vrstnem redu z besedo <b>DECS</b></p>
+  <p>Primer uporabe <b>ORDER BY</b> in <b>GROUP BY</b> pri izpisu države in števila pošt po vrstnem redu.</p>
+  <p><b>SELECT state.name, count(mail.FK_state)</b></p>
+  <p><b>FROM state</b></p>
+  <p><b>JOIN mail ON mail.FK_state = state.id</b></p>
+  <p><b>GROUP BY state.name</b></p>
+  <p><b>ORDER BY state.name;</b></p>
+
+  <h1>Having</h1>
+
+  <p>Beseda <b>HAVING</b> se največkrat uporablja kot iskalni pogoj za skupino.</p>
+  <p>Pogosto se uporablja z <b>GROUP BY</b> za filtriranje na podlagi določenega pogoja.</p>
+
+  <p>Primer uporabe <b>HAVING</b> in <b>GROUP BY</b> za izpis vseh študentov z imenom 'Luka'.</p>
+  <p><b>SELECT *</b></p>
+  <p><b>FROM student</b></p>
+  <p><b>GROUP BY id</b></p>
+  <p><b>HAVING firstname = 'Luka';</b></p>
+</div>
