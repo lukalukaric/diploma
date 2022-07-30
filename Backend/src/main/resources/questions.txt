@@ -18,4 +18,4 @@
 "18" "Prikaži ulico in hišno številko. Začni z najmanjšo hišno številko" "SELECT street, houseNumber FROM address ORDER BY houseNumber;" "orderBy"
 "19" "Prikaži ulico in hišno številko. Začni z največjo hišno številko" "SELECT street, houseNumber FROM address ORDER BY houseNumber DESC;" "orderBy"
 "20" "Prikaži ime in ceno vseh tečajev, ki so cenejši ali enaki 250e." "SELECT name, price FROM course GROUP By id HAVING price <= 250;" "having"
-"21" "Prikaži ime in priimek študentov, ki obiskujejo več kot 1 tečaj. In koliko Tečajev obiskujejo" "SELECT firstname, lastname, COUNT(*) FROM student JOIN coursestudent ON student.id = coursestudent.FK_student GROUP BY student.id HAVING COUNT (*) >= 2;" "having"
+"21" "Prikaži ime in priimek študentov, ki obiskujejo več kot 1 tečaj. Prikaži tudi koliko tečajev obiskujejo." "SELECT firstname, lastname, COUNT(*) FROM student JOIN coursestudent ON student.id = coursestudent.FK_student GROUP BY student.id HAVING COUNT (*) >= 2;" "having"

@@ -1,38 +1,40 @@
-<div class="container">
-  <form [formGroup]="validateStatement">
-    <div>
-      <h2 id="questionText"> {{ questionText }}</h2>
-      <div id="formFieldInputBox">
-        <mat-form-field id="formFieldInputField">
-          <textarea matInput id="answerInputField" type="text" placeholder="SQL Stavek" formControlName="statement" required cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10"></textarea>
+<div id="outer">
+  <div id="inner">
+    <form [formGroup]="validateStatement">
+      <div>
+        <h2 id="questionText"> {{ questionText }}</h2>
+        <div id="formFieldInputBox">
+          <mat-form-field id="formFieldInputField" color="primary">
+            <textarea matInput id="answerInputField" type="text" placeholder="SQL Stavek" formControlName="statement" required cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10"></textarea>
+          </mat-form-field>
+        </div>
+
+      </div>
+      <div id="formFieldInputButton">
+        <button mat-raised-button (click)="validateStatementOnClick()">Preizkusi</button>
+      </div>
+      <div id="answersBox">
+        <mat-form-field id="usersAnswerBox" *ngIf="showUsersAnswer" hintLabel="Vaš odgovor">
+          <div>
+            <textarea id="usersAnswer" matInput type="text" cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10" readonly>{{ usersAnswer }}</textarea>
+          </div>
+        </mat-form-field>
+
+        <mat-icon id="greenDoneIcon" *ngIf="correctIcon">done</mat-icon>
+        <mat-icon id="redDisabledIcon" *ngIf="wrongIcon">disabled_by_default</mat-icon>
+        <mat-form-field id="realAnswerBox" *ngIf="showRealAnswer" hintLabel="Pravilen odgovor">
+          <div>
+            <textarea id="realAnswer" matInput type="text" cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10" readonly>{{ realAnswer }}</textarea>
+          </div>
         </mat-form-field>
       </div>
 
-    </div>
-    <div id="formFieldInputButton">
-      <button mat-raised-button color="primary" (click)="validateStatementOnClick()">Preizkusi</button>
-    </div>
-    <div id="answersBox">
-      <mat-form-field id="usersAnswerBox" *ngIf="showUsersAnswer" hintLabel="Vaš odgovor">
-        <div>
-          <textarea id="usersAnswer" matInput type="text" cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10" readonly>{{ usersAnswer }}</textarea>
-        </div>
-      </mat-form-field>
-
-      <mat-icon id="greenDoneIcon" *ngIf="correctIcon">done</mat-icon>
-      <mat-icon id="redDisabledIcon" *ngIf="wrongIcon">disabled_by_default</mat-icon>
-      <mat-form-field id="realAnswerBox" *ngIf="showRealAnswer" hintLabel="Pravilen odgovor">
-        <div>
-          <textarea id="realAnswer" matInput type="text" cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10" readonly>{{ realAnswer }}</textarea>
-        </div>
-      </mat-form-field>
-    </div>
-
-    <div class="ERModelImage" *ngIf="bigImage">
-      <img src="/assets/images/ER_model.png" alt="E-R model"/>
-    </div>
-    <div class="ERModelImage" *ngIf="smallImage">
-      <img src="/assets/images/ER_model.png" alt="E-R model" width="733" height="325"/>
-    </div>
-  </form>
+      <div class="ERModelImage" *ngIf="bigImage">
+        <img src="/assets/images/ER_model.png" alt="E-R model"/>
+      </div>
+      <div class="ERModelImage" *ngIf="smallImage">
+        <img src="/assets/images/ER_model.png" alt="E-R model" width="733" height="325"/>
+      </div>
+    </form>
+  </div>
 </div>
