@@ -12,19 +12,19 @@ VALUES ('Nemčija');
 
 -- MAIL
 
-INSERT INTO mail (name, postalcode, FK_state)
+INSERT INTO mail (name, postcode, FK_state)
 VALUES ('Maribor', 2000, 1);
 
-INSERT INTO mail (name, postalcode, FK_state)
+INSERT INTO mail (name, postcode, FK_state)
 VALUES ('Ljubljana', 1000, 1);
 
-INSERT INTO mail (name, postalcode, FK_state)
+INSERT INTO mail (name, postcode, FK_state)
 VALUES ('Celje', 3000, 1);
 
-INSERT INTO mail (name, postalcode, FK_state)
+INSERT INTO mail (name, postcode, FK_state)
 VALUES ('Salzburg', 5020, 2);
 
-INSERT INTO mail (name, postalcode, FK_state)
+INSERT INTO mail (name, postcode, FK_state)
 VALUES ('Berlin', 10115, 3);
 
 -- ADDRESS
@@ -76,6 +76,9 @@ VALUES ('Tobias', 'Gruber','+431234567890', 'tobiasgruber@gmail.com', 5);
 INSERT INTO student (firstname, lastname, phonenumber, email, fk_address)
 VALUES ('Otto', 'Schumacher','+4930901820.', 'otto.s@gmail.com', 6);
 
+INSERT INTO student (firstname, lastname, phonenumber, email, fk_address)
+VALUES ('Špela', 'Novak','031323455','spelanovak@gmail.com', 1);
+
 -- ORGANIZER
 
 INSERT INTO organizer (name, FK_address)
@@ -96,7 +99,7 @@ INSERT INTO course (name, price, place)
 VALUES ('Napredno Programiranje', 250.00, 'Univerza v Mariboru');
 
 INSERT INTO course (name, price, place)
-VALUES ('Podatkovne baze', 150.00, 'Univerzitetna Knjižnica Maribor');
+VALUES ('Podatkovne baze', 100.00, 'Univerzitetna Knjižnica Maribor');
 
 INSERT INTO course (name, price, place)
 VALUES ('Programiranje mikrokrmilnikov', 300.00, 'TPC City');
@@ -146,3 +149,6 @@ VALUES (3, 1);
 
 INSERT INTO coursestudent (FK_course, FK_student)
 VALUES (4, 5);
+
+INSERT INTO coursestudent (FK_course, FK_student)
+VALUES (4, 7);

@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS state(
 CREATE TABLE IF NOT EXISTS mail(
     id SERIAL NOT NULL PRIMARY KEY,
     name VARCHAR(45) NOT NULL,
-    postalcode INTEGER NOT NULL,
+    postcode INTEGER NOT NULL,
     FK_state INT not null
 );
 
