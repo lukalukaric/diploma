@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS student(
     firstName VARCHAR(20) NOT NULL,
     lastName VARCHAR(45) NOT NULL,
     phoneNumber VARCHAR(15) NOT NULL,
-    email VARCHAR(20) NOT NULL,
+    email VARCHAR(30) NOT NULL,
     FK_address INT not null
 );
 
