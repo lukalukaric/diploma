@@ -1,92 +1,92 @@
-CREATE TABLE IF NOT EXISTS state(
+CREATE TABLE IF NOT EXISTS drzava(
     id SERIAL NOT NULL PRIMARY KEY,
-    name VARCHAR(45) NOT NULL
+    ime VARCHAR(45) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS mail(
+CREATE TABLE IF NOT EXISTS posta(
     id SERIAL NOT NULL PRIMARY KEY,
-    name VARCHAR(45) NOT NULL,
-    postcode INTEGER NOT NULL,
-    FK_state INT not null
+    ime VARCHAR(45) NOT NULL,
+    postnaStevilka INTEGER NOT NULL,
+    TK_drzava INT not null
 );
 
-CREATE TABLE IF NOT EXISTS address(
+CREATE TABLE IF NOT EXISTS naslov(
     id SERIAL NOT NULL PRIMARY KEY,
-    street VARCHAR(45) NOT NULL,
-    houseNumber VARCHAR(45) NOT NULL,
-    FK_mail INT not null
+    ulica VARCHAR(45) NOT NULL,
+    hisnaStevilka VARCHAR(45) NOT NULL,
+    TK_posta INT not null
 );
 
-CREATE TABLE IF NOT EXISTS organizer(
+CREATE TABLE IF NOT EXISTS organizator(
     id SERIAL NOT NULL PRIMARY KEY,
-    name VARCHAR(45) NOT NULL,
-    FK_address INT not null
+    ime VARCHAR(45) NOT NULL,
+    TK_naslov INT not null
 );
 
-CREATE TABLE IF NOT EXISTS courseOrganizer(
+CREATE TABLE IF NOT EXISTS tecajOrganizator(
     id SERIAL NOT NULL PRIMARY KEY,
-    FK_course INT not null,
-    FK_organizer INT not null
+    TK_tecaj INT not null,
+    TK_organizator INT not null
 );
 
-CREATE TABLE IF NOT EXISTS course(
+CREATE TABLE IF NOT EXISTS tecaj(
     id SERIAL NOT NULL PRIMARY KEY,
-    name VARCHAR(45) NOT NULL,
-    price DECIMAL NOT NULL,
-    place VARCHAR(45) NOT NULL
+    ime VARCHAR(45) NOT NULL,
+    cena DECIMAL NOT NULL,
+    lokacija VARCHAR(45) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS courseStudent(
+CREATE TABLE IF NOT EXISTS tecajStudent(
     id SERIAL NOT NULL PRIMARY KEY,
-    FK_course INT not null,
-    FK_student INT not null
+    TK_tecaj INT not null,
+    TK_student INT not null
 );
 
 CREATE TABLE IF NOT EXISTS student(
     id SERIAL NOT NULL PRIMARY KEY,
-    firstName VARCHAR(20) NOT NULL,
-    lastName VARCHAR(45) NOT NULL,
-    phoneNumber VARCHAR(15) NOT NULL,
+    ime VARCHAR(20) NOT NULL,
+    priimek VARCHAR(45) NOT NULL,
+    telefonskaStevilka VARCHAR(15) NOT NULL,
     email VARCHAR(30) NOT NULL,
-    FK_address INT not null
+    TK_naslov INT not null
 );
 
-ALTER TABLE mail
-ADD CONSTRAINT mail_state
-FOREIGN KEY (FK_state)
-REFERENCES state(id);
+ALTER TABLE posta
+ADD CONSTRAINT posta_drzava
+FOREIGN KEY (TK_drzava)
+REFERENCES drzava(id);
 
-ALTER TABLE address
-ADD CONSTRAINT address_mail
-FOREIGN KEY (FK_mail)
-REFERENCES mail(id);
+ALTER TABLE naslov
+ADD CONSTRAINT naslov_posta
+FOREIGN KEY (TK_posta)
+REFERENCES posta(id);
 
-ALTER TABLE organizer
-ADD CONSTRAINT organizer_address
-FOREIGN KEY (FK_address)
-REFERENCES address(id);
+ALTER TABLE organizator
+ADD CONSTRAINT organizator_naslov
+FOREIGN KEY (TK_naslov)
+REFERENCES naslov(id);
 
-ALTER TABLE courseOrganizer
-ADD CONSTRAINT course_organizer
-FOREIGN KEY (FK_course)
-REFERENCES course(id);
+ALTER TABLE tecajOrganizator
+ADD CONSTRAINT tecaj_organizator
+FOREIGN KEY (TK_tecaj)
+REFERENCES tecaj(id);
 
-ALTER TABLE courseOrganizer
-ADD CONSTRAINT organizer_course
-FOREIGN KEY (FK_organizer)
-REFERENCES organizer(id);
+ALTER TABLE tecajOrganizator
+ADD CONSTRAINT organizator_tecaj
+FOREIGN KEY (TK_organizator)
+REFERENCES organizator(id);
 
-ALTER TABLE courseStudent
-ADD CONSTRAINT course_student
-FOREIGN KEY (FK_course)
-REFERENCES course(id);
+ALTER TABLE tecajStudent
+ADD CONSTRAINT tecaj_student
+FOREIGN KEY (TK_tecaj)
+REFERENCES tecaj(id);
 
-ALTER TABLE courseStudent
-ADD CONSTRAINT student_course
-FOREIGN KEY (FK_student)
+ALTER TABLE tecajStudent
+ADD CONSTRAINT student_tecaj
+FOREIGN KEY (TK_student)
 REFERENCES student(id);
 
 ALTER TABLE student
-ADD CONSTRAINT student_address
-FOREIGN KEY (FK_address)
-REFERENCES address(id);
+ADD CONSTRAINT student_naslov
+FOREIGN KEY (TK_naslov)
+REFERENCES naslov(id);
