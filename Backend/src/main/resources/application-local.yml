@@ -1,5 +1,5 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/course
+    url: jdbc:postgresql://localhost:5432/tecaj
     username: luka
     password: luka
