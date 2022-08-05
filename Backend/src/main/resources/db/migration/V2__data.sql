@@ -1,5 +1,5 @@
 
--- STATE
+-- DRZAVA
 
 INSERT INTO drzava (ime)
 VALUES ('Slovenija');
@@ -10,7 +10,7 @@ VALUES ('Avstrija');
 INSERT INTO drzava (ime)
 VALUES ('Nemčija');
 
--- MAIL
+-- POSTA
 
 INSERT INTO posta (ime, postnaStevilka, TK_drzava)
 VALUES ('Maribor', 2000, 1);
@@ -27,7 +27,7 @@ VALUES ('Salzburg', 5020, 2);
 INSERT INTO posta (ime, postnaStevilka, TK_drzava)
 VALUES ('Berlin', 10115, 3);
 
--- ADDRESS
+-- NASLOV
 
 INSERT INTO naslov (ulica, hisnaStevilka, TK_posta)
 VALUES ('Poštna ulica', '123', 1);
@@ -79,7 +79,7 @@ VALUES ('Otto', 'Schumacher','+4930901820.', 'otto.s@gmail.com', 6);
 INSERT INTO student (ime, priimek, telefonskaStevilka, email, TK_naslov)
 VALUES ('Špela', 'Novak','031323455','spelanovak@gmail.com', 1);
 
--- ORGANIZER
+-- ORGANIZATOR
 
 INSERT INTO organizator (ime, TK_naslov)
 VALUES ('Tečaji d.o.o', 7);
@@ -90,7 +90,7 @@ VALUES ('Course Salzburg d.d.', 8);
 INSERT INTO organizator (ime, TK_naslov)
 VALUES ('Course DE', 9);
 
--- COURSE
+-- TECAJ
 
 INSERT INTO tecaj (ime, cena, lokacija)
 VALUES ('Programiranje za začetnike', 100.00, 'FERI Maribor');
@@ -104,7 +104,7 @@ VALUES ('Podatkovne baze', 100.00, 'Univerzitetna Knjižnica Maribor');
 INSERT INTO tecaj (ime, cena, lokacija)
 VALUES ('Programiranje mikrokrmilnikov', 300.00, 'TPC City');
 
--- COURSE ORGANIZER
+-- TECAJ ORGANIZATOR
 
 INSERT INTO tecajOrganizator (TK_tecaj, TK_organizator)
 VALUES (1, 1);
@@ -118,7 +118,7 @@ VALUES (3, 2);
 INSERT INTO tecajOrganizator (TK_tecaj, TK_organizator)
 VALUES (4, 3);
 
--- COURSE STUDENT
+-- TECAJ STUDENT
 
 INSERT INTO tecajStudent (TK_tecaj, TK_student)
 VALUES (1, 1);
