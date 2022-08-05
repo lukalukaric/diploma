@@ -6,19 +6,19 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-@Table(name = "STATE")
+@Table(name = "DRZAVA")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class State {
+public class Drzava {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String ime;
 
-    @OneToMany(mappedBy = "state")
-    private Collection<Mail> mail;
+    @OneToMany(mappedBy = "drzava")
+    private Collection<Posta> posta;
 }

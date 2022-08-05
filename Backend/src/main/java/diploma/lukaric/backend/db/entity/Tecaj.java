@@ -6,12 +6,12 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-@Table(name = "STUDENT")
+@Table(name = "TECAJ")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Student {
+public class Tecaj {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,16 +19,13 @@ public class Student {
 
     private String ime;
 
-    private String priimek;
+    private Double cena;
 
-    private String telefonskaStevilka;
+    private String lokacija;
 
-    private String email;
+    @OneToMany(mappedBy = "tecaj")
+    private Collection<TecajOrganizator> tecajOrganizator;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "TK_naslov", nullable = false)
-    private Naslov naslov;
-
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "tecaj")
     private Collection<TecajStudent> tecajStudent;
 }

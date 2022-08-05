@@ -7,28 +7,28 @@ import javax.persistence.JoinColumn;
 import java.util.Collection;
 
 @Entity
-@Table(name = "ADDRESS")
+@Table(name = "NASLOV")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Address {
+public class Naslov {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String street;
+    private String ulica;
 
-    private String houseNumber;
+    private String hisnaStevilka;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "FK_mail", nullable = false)
-    private Mail mail;
+    @JoinColumn(name = "TK_posta", nullable = false)
+    private Posta posta;
 
-    @OneToMany(mappedBy = "address")
-    private Collection<Organizer> organizer;
+    @OneToMany(mappedBy = "naslov")
+    private Collection<Organizator> organizator;
 
-    @OneToMany(mappedBy = "address")
+    @OneToMany(mappedBy = "naslov")
     private Collection<Student> student;
 }
